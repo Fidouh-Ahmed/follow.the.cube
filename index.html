@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>HTML</title>
+</head>
+
+<body>
+  <span id="text">Click To Start</span>
+  
+  <span style="color:white">3.1</span>
+  
+  <div id="cube" onclick="start()">Start</div>
+  <div id="cube2" hidden></div>
+  <div id="enemy" onclick="lose()"  hidden></div>
+  <div id="enemy2" onclick="lose()"  hidden></div>
+  <div id="clrb" onclick="howto()">How To Play</div>
+  
+  <span id="hs">Highscore:</span><o>0</o>
+  
+  <div id="container">
+    <img src="img1.png" alt="img1.png" id="img1">
+    <bv class="des1">time remaning , click it before it end </bv>
+    <img src="img2.png" alt="img2.png">
+    <bv class="des2">click only the right color</bv>
+    <img src="img3.png" alt="img3.png">
+    <bv class="des3">wait until it become the right color</bv>
+    <img src="img4.png" alt="img4.png">
+    <bv class="des4">"time remaning" click them both</bv>
+    <img src="img5.png" alt="img5.png">
+    <bv class="des5">choose only the right one</bv>
+    <img src="img6.png" alt="img6.png">
+    <bv class="des6">this mean you have to click 6 clicks to stop the timer</bv>
+    <img src="img7.png" alt="img7.png">
+    <bv class="des7">click the colors that only match the color on the bottom </bv>
+    <img src="img8.png" alt="img8.png">
+    <bv class="des8">click the colors that shows on the bottom , "the timer is always the final one to click"</bv>
+  </div>
+  
+  <style>
+    body{
+      background: black;
+      user-select: none;
+    }
+    #cube{
+      position:absolute;
+      transform:translate(-50%,-50%) rotate(360deg);
+      left:50%;
+      top:50%;
+      width:200px;
+      height:200px;
+      font-size: 90px;
+      text-align: center;
+      background: white;
+      border-radius:5%;
+      transition:1s;
+      z-index: 9;
+      color: transparent;
+    }
+    #enemy {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+      width: 80px;
+      height: 80px;
+      background: white;
+      border-radius: 5%;
+    }
+    #cube2 {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+      width: 80px;
+      height: 80px;
+      background: white;
+      border-radius: 5%;
+      color:black;
+      font-size: 40px;
+      z-index: 11;
+      text-align: center;
+    }
+    #enemy2 {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+      width: 80px;
+      height: 80px;
+      background: white;
+      border-radius: 5%;
+    }
+    #text{
+      position:absolute;
+      transform:translate(-50%, -50%);
+      left:50%;
+      top:20%;
+      width:90%;
+      font-size: 30px;
+      text-align: center;
+      color:transparent;
+      transition:1s;
+      z-index: 10;
+      background:#00000055;
+      #FF0068
+    }
+    #clrb{
+      position:absolute;
+      transform:translate(-50%, -50%);
+      left:-50%;
+      top:70%;
+      background:white;
+      transition:800ms;
+      width:200px;
+      height:60px;
+      border-radius: 5%;
+      text-align: center;
+      font-size: 35px;
+      z-index: 22;
+    }
+    #hs{
+      position:absolute;
+      transform:translate(-50%, -50%);
+      left:13%;
+      top:98%;
+      color:#000000;
+      transition:1s;
+      text-align: center;
+      background:transparent;
+      z-index: 25;
+    }
+    o{
+      position:absolute;
+      transform:translate(-50%, -50%);
+      left:29%;
+      top:98.1%;
+      color:black;
+      text-align: center;
+      background:transparent;
+      z-index: 25;
+      transition: 1s
+    }
+    #container{
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: -50%;
+      top: 50%;
+      width: 80%;
+      height: 80%;
+      z-index: 21;
+      background:transparent;
+      border:white solid 1px;
+      transition: 800ms;
+      overflow-y: scroll;
+      max-width: 200%;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+    }
+    #img1 {
+      width: 100%;
+      height: 90%;
+    }
+    .des1{
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 10%;
+      color:white;
+      width:100%;
+      text-align: center;
+    }
+    .des2 {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 99.5%;
+      color: white;
+      width: 100%;
+      text-align: center;
+    }
+    .des3 {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 210%;
+      color: white;
+      width: 100%;
+      text-align: center;
+    }
+    .des4 {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 310%;
+      color: white;
+      width: 100%;
+      text-align: center;
+    }
+    .des5 {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 410%;
+      color: white;
+      width: 100%;
+      text-align: center;
+    }
+    .des6 {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 505%;
+      color: white;
+      width: 100%;
+      text-align: center;
+    }
+    .des7 {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 610%;
+      color: white;
+      width: 100%;
+      text-align: center;
+    }
+    .des8 {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 703%;
+      color: white;
+      width: 100%;
+      text-align: center;
+    }
+  </style>
+  
+  <script>
+    const cube=document.getElementById('cube')
+    const enemy=document.getElementById('enemy')
+    const enemy2=document.getElementById('enemy2')
+    const clrb=document.getElementById('clrb')
+    const text=document.getElementById('text')
+    const cube2=document.getElementById('cube2')
+    const cont=document.getElementById('container')
+    const o=document.querySelector('o')
+    
+    
+    let tv=0
+    let el=0
+    let et=0
+    let pnt=-1
+    let tremaning=5
+    
+    let highs=0
+    
+    function start(){
+      cube.style.width='80px'
+      cube.style.fontSize='30px'
+      cube.style.color='transparent'
+      text.style.color='white'
+      cube.onclick=game
+      clrb.style.width='100%'
+      text.style.fontSize='30px'
+      text.innerText='Click To Start'
+      text.onclick=func333
+      text.style.width='90%'
+      clrb.style.background='white'
+      o.style.transition='800ms'
+      o.style.left='29%'
+      o.style.top='98.1%'
+      o.style.color='black'
+      o.style.background='#ffffff44'
+      o.style.fontSize=''
+      cube.style.left='50%'
+      cont.style.left='-50%'
+      
+      clrb.onclick=back
+      
+      pnt=-1
+      
+      clrb.innerText='Back'
+      clrb.style.top='93%'
+      clrb.style.width='100%'
+      clrb.style.height='14%'
+      clrb.style.borderRadius='50% 50% 0% 0%'
+      clrb.style.transition='800ms'
+    }
+    
+    function game(){
+      text.style.width='50%'
+      text.onclick=nothing
+      
+      cube.style.zIndex='9'
+      
+      clrb.onclick=nothing
+      
+      clrb.innerText=''
+      clrb.style.transition='200ms'
+      pnt++
+      
+      enemy.hidden=true
+      enemy2.hidden=true
+      
+      text.style.top='5%'
+      text.innerText=pnt
+      
+      cube.style.background='white'
+      clrb.style.background='white'
+      cube.style.transition=tv+'ms'
+      cube2.style.color='black'
+      cube2.style.fontSize='40px'
+      
+      var l=Math.floor(Math.random()*80+11)
+      var t=Math.floor(Math.random()*60 +11)
+      
+      var re=Math.floor(Math.random()*14)
+      
+      cube.style.left=l+'%'
+      cube.style.top=t+'%'
+      
+      if (re == 7) {
+        el = Math.floor(Math.random() * 80 + 11)
+        et = Math.floor(Math.random() * 60 + 11)
+        
+        var erc=Math.floor(Math.random()*255)
+        var ebc=Math.floor(Math.random()*255)
+        var egc=Math.floor(Math.random()*255)
+        
+        enemy.hidden = false
+        enemy.style.left = el + '%'
+        enemy.style.top = et + '%'
+        enemy.style.background='rgb('+erc+','+egc+','+ebc+')'
+      }
+      if (re == 6) {
+        el = Math.floor(Math.random() * 80 + 11)
+        et = Math.floor(Math.random() * 60 + 11)
+      
+        var erc = Math.floor(Math.random() * 255)
+        var ebc = Math.floor(Math.random() * 255)
+        var egc = Math.floor(Math.random() * 255)
+      
+        enemy.hidden = false
+        enemy.style.left = el + '%'
+        enemy.style.top = et + '%'
+        enemy.style.background = 'rgb(' + erc + ',' + egc + ',' + ebc + ')'
+        
+        var r = Math.floor(Math.random() * 255)
+        var g = Math.floor(Math.random() * 255)
+        var b = Math.floor(Math.random() * 255)
+        
+        cube.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+        clrb.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+      }
+      
+      if(re==5){
+        cube.style.background='red'
+        clrb.style.background='red'
+        cube.style.color='white'
+        cube.style.fontSize='40px'
+        cube.innerText='3'
+        
+        let time=150
+        
+        var si =setInterval(function tdi(){
+          time-=1
+          cube.innerText=time
+          cube.onclick=next
+          
+          function next(){
+            cube.style.background = 'white'
+            clrb.style.background = 'white'
+            cube.style.transition = tv + 'ms'
+            l = Math.floor(Math.random() * 80 + 11)
+            t = Math.floor(Math.random() * 60 + 11)
+            
+            cube.style.left = l + '%'
+            cube.style.top = t + '%'
+            cube.onclick=game
+            clearInterval(si)
+            cube.style.color='transparent'
+          }
+          
+          if(time<=0){
+            clearInterval(si)
+            cube.style.left = '50%'
+            cube.style.top = '50%'
+            cube.style.background = 'white'
+            cube.style.transition = '800ms'
+            cube.style.width = '200px'
+            cube.innerText = 'Start'
+            cube.style.color = 'black'
+            cube.style.fontSize = '58px'
+            cube.onclick = start
+            clrb.innerText = 'How To Play'
+            clrb.style.top = '70%'
+            clrb.style.width = '200px'
+            clrb.style.height = '60px'
+            clrb.style.borderRadius = '5%'
+            clrb.onclick = howto
+            clrb.style.background='white'
+            
+            text.style.top = '25%'
+            
+            if (highs < pnt) {
+              highs=pnt
+              o.style.left = '50%'
+              o.style.top = '25%'
+              o.style.fontSize = '30px'
+              o.style.color = 'transparent'
+              o.style.backgroun='transparent'
+              o.style.background='transparent'
+              o.innerText=highs
+              localStorage.setItem('hsp',highs)
+            }
+          }
+        },10)
+      }
+      
+      if (re == 3) {
+        var r = Math.floor(Math.random() * 255)
+        var g = Math.floor(Math.random() * 255)
+        var b = Math.floor(Math.random() * 255)
+        
+        cube.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+        clrb.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+      }
+      if(re==2){
+        el = Math.floor(Math.random() * 80 + 11)
+        et = Math.floor(Math.random() * 60 + 11)
+        el2 = Math.floor(Math.random() * 80 + 11)
+        et2 = Math.floor(Math.random() * 60 + 11)
+        
+        var erc = Math.floor(Math.random() * 255)
+        var ebc = Math.floor(Math.random() * 255)
+        var egc = Math.floor(Math.random() * 255)
+        
+        enemy.hidden = false
+        enemy2.hidden=false
+        enemy.style.left = el + '%'
+        enemy.style.top = et + '%'
+        enemy2.style.left = el2 + '%'
+        enemy2.style.top = et2 + '%'
+        enemy.style.background = 'rgb(' + erc + ',' + egc + ',' + ebc + ')'
+        
+        var r = Math.floor(Math.random() * 255)
+        var g = Math.floor(Math.random() * 255)
+        var b = Math.floor(Math.random() * 255)
+        
+        cube.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+        clrb.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+      }
+      
+      if(re==4){
+        cube.style.background='red'
+        
+        let losingtime=200
+        
+        var lt=setInterval(function ttt(){
+          cube.onclick=lose
+          
+          losingtime-=1
+          
+          
+          function lose() {
+            clearInterval(lt)
+            cube.style.left = '50%'
+            cube.style.top = '50%'
+            cube.style.background='white'
+            cube.style.transition='800ms'
+            cube.style.width='200px'
+            cube.innerText='Start'
+            cube.style.color='black'
+            cube.style.fontSize='58px'
+            cube.onclick=start
+            clrb.innerText = 'How To Play'
+            clrb.style.top = '70%'
+            clrb.style.width = '200px'
+            clrb.style.height = '60px'
+            clrb.style.borderRadius = '5%'
+            clrb.onclick = howto
+            clrb.style.background='white'
+            
+            text.style.top = '25%'
+            
+            if (highs < pnt) {
+              highs=pnt
+              o.style.left = '50%'
+              o.style.top = '25%'
+              o.style.fontSize = '30px'
+              o.style.color = 'transparent'
+              o.style.background='transparent'
+              o.innerText=highs
+              localStorage.setItem('hsp',highs)
+            }
+          }
+          
+          if(losingtime<=0){
+            clearInterval(lt)
+            cube.style.background='white'
+            cube.onclick=game
+          }
+        },10)
+      }
+      if (re == 1) {
+        var r = Math.floor(Math.random() * 255)
+        var g = Math.floor(Math.random() * 255)
+        var b = Math.floor(Math.random() * 255)
+        
+        cube.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+      
+        let losingtime = 200
+      
+        var lt = setInterval(function ttt() {
+          cube.onclick = lose
+      
+          losingtime -= 1
+      
+      
+          function lose() {
+            clearInterval(lt)
+            cube.style.left = '50%'
+            cube.style.top = '50%'
+            cube.style.background = 'white'
+            cube.style.transition = '800ms'
+            cube.style.width = '200px'
+            cube.innerText = 'Start'
+            cube.style.color = 'black'
+            cube.style.fontSize = '58px'
+            cube.onclick = start
+            clrb.innerText = 'How To Play'
+            clrb.style.top = '70%'
+            clrb.style.width = '200px'
+            clrb.style.height = '60px'
+            clrb.style.borderRadius = '5%'
+            clrb.onclick = howto
+            clrb.style.background='white'
+      
+            text.style.top = '25%'
+            
+            if (highs < pnt) {
+              highs=pnt
+              o.style.left = '50%'
+              o.style.top = '25%'
+              o.style.fontSize = '30px'
+              o.style.color = 'transparent'
+              o.style.background='transparent'
+              o.innerText=highs
+              localStorage.setItem('hsp',highs)
+            }
+          }
+      
+          if (losingtime <= 0) {
+            clearInterval(lt)
+            cube.style.background = 'white'
+            cube.onclick = game
+          }
+        }, 10)
+      }
+      if(re==0){
+        cube2.hidden=false
+        
+        var timerem=150
+        
+        cube.onclick=nothing
+        
+        var r = Math.floor(Math.random() * 255)
+        var g = Math.floor(Math.random() * 255)
+        var b = Math.floor(Math.random() * 255)
+        
+        l = Math.floor(Math.random() * 80 + 11)
+        t = Math.floor(Math.random() * 60 + 11)
+        l2 = Math.floor(Math.random() * 80 + 11)
+        t2 = Math.floor(Math.random() * 60 + 11)
+        
+        
+        cube.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+        cube2.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+        clrb.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+        cube.style.left = l + '%'
+        cube.style.top = t + '%'
+        cube2.style.left = l2 + '%'
+        cube2.style.top = t2 + '%'
+        
+        var trm=setInterval(function jhvs(){
+          cube2.onclick=check
+          
+          timerem-=1
+          cube2.innerText=timerem
+          
+          function check(){
+            clearInterval(trm)
+            cube.onclick=game
+            cube2.hidden=true
+          }
+          
+          if(timerem<=0){
+            clearInterval(trm)
+            cube.style.left = '50%'
+            cube.style.top = '50%'
+            cube.style.background = 'white'
+            cube.style.transition = '800ms'
+            cube.style.width = '200px'
+            cube.innerText = 'Start'
+            cube.style.color = 'black'
+            cube.style.fontSize = '58px'
+            cube.onclick = start
+            clrb.innerText = 'How To Play'
+            clrb.style.top = '70%'
+            clrb.style.width = '200px'
+            clrb.style.height = '60px'
+            clrb.style.borderRadius = '5%'
+            clrb.onclick = howto
+            clrb.style.background='white'
+            
+            cube2.hidden=true
+            
+            text.style.top = '25%'
+            
+            if (highs < pnt) {
+              highs = pnt
+              o.style.left = '50%'
+              o.style.top = '25%'
+              o.style.fontSize = '30px'
+              o.style.color = 'transparent'
+              o.style.background = 'transparent'
+              o.innerText = highs
+              localStorage.setItem('hsp', highs)
+            }
+          }
+        },10)
+      }
+      if (re == 8) {
+      
+        let losingtime = 400
+        
+        var tr = Math.floor(Math.random() * 255)
+        var tg = Math.floor(Math.random() * 255)
+        var tb = Math.floor(Math.random() * 255)
+        
+        cube.style.background = 'rgb('+tr+','+tg+','+tb+')'
+        
+        tr = Math.floor(Math.random() * 255)
+        tg = Math.floor(Math.random() * 255)
+        tb = Math.floor(Math.random() * 255)
+      
+        var lmo = setInterval(function ttt() {
+          cube.onclick = lose
+      
+          losingtime -= 1
+      
+      
+          function lose() {
+            clearInterval(lmo)
+            cube.style.left = '50%'
+            cube.style.top = '50%'
+            cube.style.background = 'white'
+            cube.style.transition = '800ms'
+            cube.style.width = '200px'
+            cube.innerText = 'Start'
+            cube.style.color = 'black'
+            cube.style.fontSize = '58px'
+            cube.onclick = start
+            clrb.innerText = 'How To Play'
+            clrb.style.top = '70%'
+            clrb.style.width = '200px'
+            clrb.style.height = '60px'
+            clrb.style.borderRadius = '5%'
+            clrb.onclick = howto
+            clrb.style.background='white'
+      
+            text.style.top = '25%'
+      
+            if (highs < pnt) {
+              highs = pnt
+              o.style.left = '50%'
+              o.style.top = '25%'
+              o.style.fontSize = '30px'
+              o.style.color = 'transparent'
+              o.style.background = 'transparent'
+              o.innerText = highs
+              localStorage.setItem('hsp', highs)
+            }
+          }
+      
+          if (losingtime == 200) {
+            
+            cube.style.background = 'rgb('+tr+','+tg+','+tb+')'
+          }
+          if (losingtime <= 0) {
+            cube.style.background='white'
+            cube.onclick=game
+            clearInterval(lmo)
+          }
+        }, 10)
+      }
+      if(re==9){
+        var r = Math.floor(Math.random() * 255)
+        var g = Math.floor(Math.random() * 255)
+        var b = Math.floor(Math.random() * 255)
+        l = Math.floor(Math.random() * 80 + 11)
+        t = Math.floor(Math.random() * 60 + 11)
+        l2 = Math.floor(Math.random() * 80 + 11)
+        t2 = Math.floor(Math.random() * 60 + 11)
+        
+        cube2.hidden=false
+        
+        let code=false
+        let code2=false
+        
+        cube.style.background = 'rgb('+r+','+g+','+b+')'
+        cube2.style.background = 'rgb('+r+','+g+','+b+')'
+        clrb.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+        cube.style.left = l + '%'
+        cube.style.top = t + '%'
+        cube2.style.left = l2 + '%'
+        cube2.style.top = t2 + '%'
+        cube.style.color='black'
+        cube.style.fontSize='40px'
+        
+        let ccc=200
+        
+        var mlx = setInterval(function jhvs() {
+          cube2.onclick = check
+        
+          ccc -= 1
+          cube2.innerText = ccc
+        
+          function check() {
+            clearInterval(mlx)
+            if(code==true){
+            cube.onclick = game
+            }
+            code2=true
+            cube2.hidden = true
+          }
+          if (ccc <= 0) {
+            clearInterval(mlx)
+            cube.style.left = '50%'
+            cube.style.top = '50%'
+            cube.style.background = 'white'
+            cube.style.transition = '800ms'
+            cube.style.width = '200px'
+            cube.innerText = 'Start'
+            cube.style.color = 'black'
+            cube.style.fontSize = '58px'
+            cube.onclick = start
+            clrb.innerText = 'How To Play'
+            clrb.style.top = '70%'
+            clrb.style.width = '200px'
+            clrb.style.height = '60px'
+            clrb.style.borderRadius = '5%'
+            clrb.onclick = howto
+            clrb.style.background='white'
+            
+            cube2.hidden = true
+        
+            text.style.top = '25%'
+        
+            if (highs < pnt) {
+              highs = pnt
+              o.style.left = '50%'
+              o.style.top = '25%'
+              o.style.fontSize = '30px'
+              o.style.color = 'transparent'
+              o.style.background = 'transparent'
+              o.innerText = highs
+              localStorage.setItem('hsp', highs)
+            }
+          }
+        }, 10)
+        var mxx = setInterval(function jhvs() {
+          cube.onclick = check
+        
+          ccc -= 1
+          cube.innerText = ccc
+        
+          function check() {
+            clearInterval(mxx)
+            code=true
+            if(code2==true){
+            cube.onclick = game
+            }
+            if(code2==false){
+              cube.onclick=nothing
+            }
+            cube.style.color='transparent'
+          }
+          if (ccc <= 0) {
+            clearInterval(mxx)
+            cube.style.left = '50%'
+            cube.style.top = '50%'
+            cube.style.background = 'white'
+            cube.style.transition = '800ms'
+            cube.style.width = '200px'
+            cube.innerText = 'Start'
+            cube.style.color = 'black'
+            cube.style.fontSize = '58px'
+            cube.onclick = start
+            clrb.innerText = 'How To Play'
+            clrb.style.top = '70%'
+            clrb.style.width = '200px'
+            clrb.style.height = '60px'
+            clrb.style.borderRadius = '5%'
+            clrb.onclick = howto
+            clrb.style.background='white'
+            
+            cube2.hidden = true
+        
+            text.style.top = '25%'
+        
+            if (highs < pnt) {
+              highs = pnt
+              o.style.left = '50%'
+              o.style.top = '25%'
+              o.style.fontSize = '30px'
+              o.style.color = 'transparent'
+              o.style.background = 'transparent'
+              o.innerText = highs
+              localStorage.setItem('hsp', highs)
+            }
+          }
+        }, 10)
+      }
+      if(re==10){
+        cube2.style.color='transparent'
+        
+        cube2.hidden=false
+        enemy.hidden=false
+        enemy2.hidden=false
+        
+        cube.onclick=lose
+        cube2.onclick=lose
+        enemy.onclick=lose
+        enemy2.onclick=check
+        
+        var r = Math.floor(Math.random() * 255)
+        var g = Math.floor(Math.random() * 255)
+        var b = Math.floor(Math.random() * 255)
+        let l = Math.floor(Math.random() * 80 + 11)
+        let t = Math.floor(Math.random() * 60 + 11)
+        
+        var r2 = Math.floor(Math.random() * 255)
+        var g2 = Math.floor(Math.random() * 255)
+        var b2 = Math.floor(Math.random() * 255)
+        let l2 = Math.floor(Math.random() * 80 + 11)
+        let t2 = Math.floor(Math.random() * 60 + 11)
+        
+        var r3 = Math.floor(Math.random() * 255)
+        var g3 = Math.floor(Math.random() * 255)
+        var b3 = Math.floor(Math.random() * 255)
+        let l3 = Math.floor(Math.random() * 80 + 11)
+        let t3 = Math.floor(Math.random() * 60 + 11)
+        
+        var r4 = Math.floor(Math.random() * 255)
+        var g4 = Math.floor(Math.random() * 255)
+        var b4 = Math.floor(Math.random() * 255)
+        let l4 = Math.floor(Math.random() * 80 + 11)
+        let t4 = Math.floor(Math.random() * 60 + 11)
+        
+        cube.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+        clrb.style.background = 'rgb(' + r4 + ',' + g4 + ',' + b4 + ')'
+        cube.style.left = l + '%'
+        cube.style.top = t + '%'
+        
+        cube2.style.background = 'rgb(' + r2 + ',' + g2 + ',' + b2 + ')'
+        cube2.style.left = l2 + '%'
+        cube2.style.top = t2 + '%'
+        
+        enemy.style.background = 'rgb(' + r3 + ',' + g3 + ',' + b3 + ')'
+        enemy.style.left = l3 + '%'
+        enemy.style.top = t3 + '%'
+        
+        enemy2.style.background = 'rgb(' + r4 + ',' + g4 + ',' + b4 + ')'
+        enemy2.style.left = l4 + '%'
+        enemy2.style.top = t4 + '%'
+        
+         function check(){
+        this.hidden=true
+        clrb.style.background = 'rgb(' + r3 + ',' + g3 + ',' + b3 + ')'
+        enemy2.onclick=lose
+        enemy.onclick=check2
+      }
+      function check2() {
+        this.hidden = true
+        clrb.style.background = 'rgb(' + r2 + ',' + g2 + ',' + b2 + ')'
+        enemy.onclick = lose
+        cube2.onclick = check3
+      }
+      function check3() {
+        this.hidden = true
+        clrb.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+        cube2.onclick = game
+        cube.onclick = game
+      }
+      }
+      if(re==11){
+        cube2.style.color='transparent'
+        
+        cube2.hidden=false
+        enemy.hidden=false
+        enemy2.hidden=false
+        
+        cube.style.color='black'
+        cube.style.fontSize='40px'
+        
+        var r = Math.floor(Math.random() * 255)
+        var g = Math.floor(Math.random() * 255)
+        var b = Math.floor(Math.random() * 255)
+        let l = Math.floor(Math.random() * 80 + 11)
+        let t = Math.floor(Math.random() * 60 + 11)
+        
+        var r2 = Math.floor(Math.random() * 255)
+        var g2 = Math.floor(Math.random() * 255)
+        var b2 = Math.floor(Math.random() * 255)
+        let l2 = Math.floor(Math.random() * 80 + 11)
+        let t2 = Math.floor(Math.random() * 60 + 11)
+        
+        var r3 = Math.floor(Math.random() * 255)
+        var g3 = Math.floor(Math.random() * 255)
+        var b3 = Math.floor(Math.random() * 255)
+        let l3 = Math.floor(Math.random() * 80 + 11)
+        let t3 = Math.floor(Math.random() * 60 + 11)
+        
+        var r4 = Math.floor(Math.random() * 255)
+        var g4 = Math.floor(Math.random() * 255)
+        var b4 = Math.floor(Math.random() * 255)
+        let l4 = Math.floor(Math.random() * 80 + 11)
+        let t4 = Math.floor(Math.random() * 60 + 11)
+        
+        cube.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+        clrb.style.background = 'rgb(' + r4 + ',' + g4 + ',' + b4 + ')'
+        cube.style.left = l + '%'
+        cube.style.top = t + '%'
+        
+        cube2.style.background = 'rgb(' + r2 + ',' + g2 + ',' + b2 + ')'
+        cube2.style.left = l2 + '%'
+        cube2.style.top = t2 + '%'
+        
+        enemy.style.background = 'rgb(' + r3 + ',' + g3 + ',' + b3 + ')'
+        enemy.style.left = l3 + '%'
+        enemy.style.top = t3 + '%'
+        
+        enemy2.style.background = 'rgb(' + r4 + ',' + g4 + ',' + b4 + ')'
+        enemy2.style.left = l4 + '%'
+        enemy2.style.top = t4 + '%'
+        
+        let gh=320
+        
+        cube.onclick = nothing
+        cube2.onclick = nothing
+        enemy.onclick = nothing
+        
+        var sdr=setInterval(function ggdvj(){
+          
+          enemy2.onclick = check
+          
+        function check(){
+          this.hidden=true
+          clrb.style.background = 'rgb(' + r3 + ',' + g3 + ',' + b3 + ')'
+          enemy2.onclick=lose
+          enemy.onclick=check2
+        }
+        function check2() {
+          this.hidden = true
+          clrb.style.background = 'rgb(' + r2 + ',' + g2 + ',' + b2 + ')'
+          enemy.onclick = lose
+          cube2.onclick = check3
+        }
+        function check3() {
+          this.hidden = true
+          clrb.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+          cube2.onclick = game
+          cube.onclick = check4
+          }
+          function check4(){
+            clearInterval(sdr)
+            cube.style.color='transparent'
+            cube.onclick=game
+          }
+          
+          gh-=1
+          
+          cube.innerText=gh
+          
+          if(gh<=0){
+            clearInterval(sdr)
+            cube.style.left = '50%'
+            cube.style.top = '50%'
+            cube.style.background = 'white'
+            cube.style.transition = '800ms'
+            cube.style.width = '200px'
+            cube.innerText = 'Start'
+            cube.style.color = 'black'
+            cube.style.fontSize = '58px'
+            cube.onclick = start
+            clrb.innerText = 'How To Play'
+            clrb.style.top = '70%'
+            clrb.style.width = '200px'
+            clrb.style.height = '60px'
+            clrb.style.borderRadius = '5%'
+            clrb.onclick = howto
+            clrb.style.background='white'
+            
+            cube2.hidden = true
+            enemy.hidden=true
+            enemy2.hidden=true
+            
+            text.style.top = '25%'
+            
+            if (highs < pnt) {
+              highs = pnt
+              o.style.left = '50%'
+              o.style.top = '25%'
+              o.style.fontSize = '30px'
+              o.style.color = 'transparent'
+              o.style.background = 'transparent'
+              o.innerText = highs
+              localStorage.setItem('hsp', highs)
+            }
+          }
+        },10)
+      }
+      if(re==12){
+        enemy.hidden=false
+        
+        enemy.style.background='blue'
+        
+        clrb.style.background='#ff0066'
+        
+        let timeout=1
+        
+        var ty=setInterval(function tyf(){
+          
+          enemy.onclick=lose2
+          
+          timeout-=1
+          
+          
+          function lose2() {
+            clearInterval(ty)
+            enemy.hidden = true
+            cube.style.left = '50%'
+            cube.style.top = '50%'
+            cube.style.background = 'white'
+            cube.style.transition = '800ms'
+            cube.style.width = '200px'
+            cube.innerText = 'Start'
+            cube.style.color = 'black'
+            cube.style.fontSize = '58px'
+            cube.onclick = start
+            clrb.innerText = 'How To Play'
+            clrb.style.top = '70%'
+            clrb.style.width = '200px'
+            clrb.style.height = '60px'
+            clrb.style.borderRadius = '5%'
+            clrb.onclick = howto
+            clrb.style.background = 'white'
+          
+            text.style.top = '25%'
+          
+            if (highs < pnt) {
+              highs = pnt
+              o.style.left = '50%'
+              o.style.top = '25%'
+              o.style.fontSize = '30px'
+              o.style.color = 'transparent'
+              o.style.background = 'transparent'
+              o.innerText = highs
+              localStorage.setItem('hsp', highs)
+            }
+          }
+          
+          if(timeout<=0){
+            var a=Math.floor(Math.random()*100)
+            var r1 = Math.floor(Math.random() * 255)
+            var g1 = Math.floor(Math.random() * 255)
+            var b1 = Math.floor(Math.random() * 255)
+            enemy.style.background = 'rgb(' + r1 + ',' + g1 + ',' + b1 + ')'
+          }
+          if (a < 20) {
+            cube.onclick = check
+            cube.style.background = '#ff0066'
+            timeout=200
+          }
+          if (a >20) {
+            cube.onclick = lose2
+            var r = Math.floor(Math.random() * 255)
+            var g = Math.floor(Math.random() * 255)
+            var b = Math.floor(Math.random() * 255)
+            cube.style.background = 'rgb(' + r + ',' + g + ',' + b + ')'
+            timeout=150
+          }
+          
+          function check(){
+            clearInterval(ty)
+            enemy.hidden=true
+            cube.style.background='white'
+            clrb.style.background='white'
+            cube.onclick=game
+          }
+          
+          
+        },10)
+      }
+      
+      if(re==13){
+        cube2.hidden=false
+        cube.onclick=nothing
+        
+        let l = Math.floor(Math.random() * 80 + 11)
+        let t = Math.floor(Math.random() * 60 + 11)
+        
+        cube2.style.left=l+'%'
+        cube2.style.top=t+'%'
+        
+        let clicks=Math.floor(Math.random()*5+3)
+        
+        cube2.innerText=clicks
+        cube2.style.fontSize='60px'
+        cube2.style.background='white'
+        
+        cube.style.background='red'
+        cube.style.color='white'
+        cube.style.fontSize='45px'
+        
+        
+        let time=250
+        
+        var tr=setInterval(function trf(){
+          time-=1
+          cube.innerText=time
+          
+          cube2.onclick=check
+          
+          function check(){
+            clicks-=1
+            cube2.innerText=clicks
+            if(clicks<=0){
+              clearInterval(tr)
+              cube2.hidden=true
+              cube.style.background='white'
+              cube.style.color='transparent'
+              cube.onclick=game
+            }
+          }
+          
+          if (time <= 0) {
+            clearInterval(tr)
+            cube.style.left = '50%'
+            cube.style.top = '50%'
+            cube.style.background = 'white'
+            cube.style.transition = '800ms'
+            cube.style.width = '200px'
+            cube.innerText = 'Start'
+            cube.style.color = 'black'
+            cube.style.fontSize = '58px'
+            cube.onclick = start
+            clrb.innerText = 'How To Play'
+            clrb.style.top = '70%'
+            clrb.style.width = '200px'
+            clrb.style.height = '60px'
+            clrb.style.borderRadius = '5%'
+            clrb.onclick = howto
+            clrb.style.background = 'white'
+          
+            cube2.hidden = true
+          
+            text.style.top = '25%'
+          
+            if (highs < pnt) {
+              highs = pnt
+              o.style.left = '50%'
+              o.style.top = '25%'
+              o.style.fontSize = '30px'
+              o.style.color = 'transparent'
+              o.style.background = 'transparent'
+              o.innerText = highs
+              localStorage.setItem('hsp', highs)
+            }
+          }
+          
+        },10)
+      }
+    }
+    
+    function lose(){
+      cube.style.left = '50%'
+      cube.style.top = '50%'
+      cube.style.background = 'white'
+      cube.style.transition = '800ms'
+      cube.style.width = '200px'
+      cube.innerText = 'Start'
+      cube.style.color = 'black'
+      cube.style.fontSize = '58px'
+      cube.onclick = start
+      
+      clrb.innerText = 'How To Play'
+      clrb.style.top = '70%'
+      clrb.style.width = '200px'
+      clrb.style.height = '60px'
+      clrb.style.borderRadius = '5%'
+      clrb.onclick = howto
+      clrb.style.background='white'
+      
+      enemy.hidden=true
+      enemy2.hidden=true
+      cube2.hidden=true
+      
+      text.style.top ='25%'
+      
+      if(highs<pnt){
+        highs=pnt
+        o.style.left='50%'
+        o.style.top='25%'
+        o.style.fontSize='30px'
+        o.style.color='transparent'
+        o.style.background='transparent'
+        o.innerText=highs
+        
+        localStorage.setItem('hsp',highs)
+      }
+    }
+    
+    function back(){
+      cube.style.left = '50%'
+      cube.style.top = '50%'
+      cube.style.background = 'white'
+      cube.style.transition = '800ms'
+      cube.style.width = '200px'
+      cube.innerText = 'Start'
+      cube.style.color = 'black'
+      cube.style.fontSize = '58px'
+      cube.onclick = start
+      cube.style.left='50%'
+      cont.style.left='-50%'
+      
+      clrb.innerText = 'How To Play'
+      clrb.style.top = '70%'
+      clrb.style.width = '200px'
+      clrb.style.height = '60px'
+      clrb.style.borderRadius = '5%'
+      clrb.onclick=howto
+      clrb.style.background='white'
+      
+      enemy.hidden = true
+      enemy2.hidden = true
+      
+      text.style.color='transparent'
+    }
+    
+    function howto(){
+      cont.style.left='50%'
+      cube.style.left='-50%'
+      clrb.style.top='5%'
+      clrb.innerText='Back'
+      clrb.onclick=back
+    }
+    
+    function nothing(){}
+    
+    window.onload=function(){
+      highs=localStorage.getItem('hsp');
+      o.innerText=highs
+      
+          cube.style.height='80px'
+          cube.style.color='black'
+          cube.style.fontSize='58px'
+          clrb.style.left='50%'
+          hs.style.background='#ffffff44'
+          o.style.background='#ffffff44'
+          
+          cube.style.transition='800ms'
+          clrb.style.transition='800ms'
+    }
+    
+    function func333() {
+      text.innerText = 'are you serious bro? click the square'
+      text.onclick = func334
+    }
+    function func334() {
+      text.innerText = 'you know exactly what you have to click'
+      text.onclick = func335
+    }
+    function func335() {
+      text.innerText = '...'
+      text.onclick = func336
+    }
+    function func336() {
+      text.innerText = '...'
+      text.onclick = func337
+    }
+    function func337() {
+      text.innerText = '...'
+      text.onclick = func338
+    }
+    function func338() {
+      text.innerText = '↓'
+      text.onclick=func339
+    }
+    function func339() {
+      text.innerText = '...'
+    }
+  </script>
+</body>
+</html>
